@@ -67,7 +67,7 @@
   .cat:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(0,0,0,.1)}
   .cat .thumb-wrap{position:relative;margin-bottom:12px}
   .cat .thumb{width:100%;height:128px;object-fit:cover;border-radius:10px;display:block;border:1px solid var(--line)}
-  .cat .cat-badge{position:absolute;right:8px;bottom:8px;background:var(--hogar-terracotta);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.3px;padding:3px 9px;border-radius:20px;box-shadow:0 2px 6px rgba(0,0,0,.25);pointer-events:none}
+  .cat .cat-badge{position:absolute;right:8px;bottom:8px;background:var(--pro-navy);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.3px;padding:3px 9px;border-radius:20px;box-shadow:0 2px 6px rgba(0,0,0,.25);pointer-events:none}
   .cat h3{font-family:var(--serif);font-weight:700}
   .cat h3{font-size:1.02rem;margin-top:8px;color:var(--ink)}
   .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:10px}
@@ -112,6 +112,11 @@
     .lang{position:static;transform:none;flex-direction:row;align-items:center;margin:0 auto}
     .lang .deals-btn{margin-top:0}
   }
+  /* Language fallback: hide inactive language via body class (defends against inline-style overrides) */
+  body.lang-es [data-en]{display:none !important}
+  body.lang-es [data-es]{display:inline !important}
+  body.lang-en [data-es]{display:none !important}
+  body.lang-en [data-en]{display:inline !important}
 </style>
 </head>
 <body>
@@ -124,8 +129,8 @@
     <div class="lang">
       <button id="btn-es" class="active" onclick="setLang('es')">🇲🇽 ES</button>
       <button id="btn-en" onclick="setLang('en')">🇺🇸 EN</button>
-      <a class="deals-btn" href="#maquinaria" style="background:var(--pro-navy);border-color:var(--pro-navy)">🚜 <span data-es>MAQUINARIA</span><span data-en>MACHINERY</span></a>
-      <a class="deals-btn" href="ofertas.html">🔥 <span data-es>OFERTAS</span><span data-en>DEALS</span></a>
+      <a class="deals-btn" href="#maquinaria" style="background:var(--pro-navy);border-color:var(--pro-navy)">🚜 <span data-es>MAQUINARIA</span> <span data-en>MACHINERY</span></a>
+      <a class="deals-btn" href="ofertas.html">🔥 <span data-es>OFERTAS</span> <span data-en>DEALS</span></a>
     </div>
   </div>
 </header>
@@ -252,6 +257,8 @@
     document.querySelectorAll('[data-es],[data-en]').forEach(function(el){
       el.style.display = (el.getAttribute('data-' + lang) !== null) ? '' : 'none';
     });
+    document.body.classList.remove('lang-es','lang-en');
+    document.body.classList.add('lang-' + lang);
     var es=document.getElementById('btn-es'), en=document.getElementById('btn-en');
     if(es) es.classList.toggle('active', lang==='es');
     if(en) en.classList.toggle('active', lang==='en');
