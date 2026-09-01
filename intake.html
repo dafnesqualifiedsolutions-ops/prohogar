@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ProHogar Maquinaria Pesada — Solicita tu equipo</title>
+<style>
+  :root{--bg:#0b1f3a;--accent:#f4b942;--card:#fff;--muted:#5b6b82}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#f5f7fb;color:#13233f}
+  header{background:var(--bg);color:#fff;padding:22px 18px;text-align:center}
+  header h1{margin:0;font-size:1.5rem}
+  header p{margin:6px 0 0;color:#c7d3e6;font-size:.95rem}
+  .wrap{max-width:640px;margin:0 auto;padding:18px}
+  .card{background:var(--card);border-radius:14px;padding:20px;margin:16px 0;box-shadow:0 4px 18px rgba(20,40,80,.08)}
+  h2{margin-top:0;font-size:1.2rem}
+  label{display:block;margin:12px 0 4px;font-weight:600;font-size:.9rem}
+  input,select,textarea{width:100%;padding:12px;border:1px solid #d4dce8;border-radius:10px;font-size:1rem;font-family:inherit}
+  .row{display:flex;gap:12px}.row>div{flex:1}
+  button.submit{width:100%;background:var(--bg);color:#fff;border:0;border-radius:12px;padding:16px;font-size:1.05rem;font-weight:700;margin-top:18px;cursor:pointer}
+  a.wa{display:none;width:100%;background:#25D366;color:#fff;border:0;border-radius:12px;padding:16px;font-size:1.05rem;font-weight:700;margin-top:14px;cursor:pointer;text-align:center;text-decoration:none}
+  .lang{text-align:center;margin:10px 0}
+  .lang button{background:none;border:1px solid #cdd6e6;border-radius:999px;padding:6px 14px;margin:0 4px;font-weight:600;cursor:pointer}
+  .note{font-size:.8rem;color:var(--muted);margin-top:10px}
+  #msg{margin-top:14px;font-weight:700;text-align:center}
+  .ok{color:#1f8a4c}.err{color:#c0392b}
+  footer{text-align:center;color:var(--muted);font-size:.8rem;padding:24px}
+</style>
+</head>
+<body>
+<header>
+  <h1>ProHogar Maquinaria Pesada</h1>
+  <p>Localizamos maquinaria pesada usada en EE.UU. y la enviamos a todo el mundo vía Puerto de Jacksonville.</p>
+</header>
+
+<div class="lang">
+  <button id="esBtn" onclick="setLang('es')">Español</button>
+  <button id="enBtn" onclick="setLang('en')">English</button>
+</div>
+
+<div class="wrap">
+  <div class="card">
+    <h2 id="formTitle">Déjanos tu especificación</h2>
+    <p class="note" id="formSub">Cuéntanos qué equipo buscas. Te enviamos listados en vivo — sin costo por adelantado, ganamos 4% al cerrar.</p>
+    <form id="leadForm">
+      <label id="lbl_name">Tu nombre</label><input name="name" required>
+      <div class="row">
+        <div><label id="lbl_email">Email</label><input name="email" type="email" required></div>
+        <div><label id="lbl_phone">WhatsApp (opcional)</label><input name="phone"></div>
+      </div>
+      <label id="lbl_machine">Tipo de maquinaria</label>
+      <select name="machine_type" required>
+        <option value="">—</option>
+        <option>Tractor / Bulldozer (CAT D6/D8/D9)</option>
+        <option>Excavadora 30+ ton</option>
+        <option>Camión articulado (ADT)</option>
+        <option>Cargador / Wheel loader</option>
+        <option>Motoniveladora / Grader</option>
+        <option>Skid steer</option>
+        <option>Otro</option>
+      </select>
+      <div class="row">
+        <div><label id="lbl_model">Modelo / marca</label><input name="model" placeholder="ej. CAT D8T, Komatsu 375"></div>
+        <div><label id="lbl_year">Año</label><input name="year" placeholder="ej. 2017"></div>
+      </div>
+      <div class="row">
+        <div><label id="lbl_hours">Horas</label><input name="hours" placeholder="ej. 4500"></div>
+        <div><label id="lbl_budget">Presupuesto (USD)</label><input name="budget" placeholder="ej. 120000"></div>
+      </div>
+      <label id="lbl_location">Ubicación de entrega</label><input name="location" placeholder="ej. Jacksonville FL / Mérida MX / Johannesburgo">
+      <label id="lbl_notes">Notas adicionales</label><textarea name="notes" rows="3" placeholder="cualquier detalle"></textarea>
+      <button class="submit" type="submit" id="submitBtn">Enviar mi spec</button>
+      <a class="wa" id="waBtn" target="_blank" rel="noopener">📲 Continuar por WhatsApp</a>
+      <p id="msg"></p>
+      <p class="note" id="footnote">Sin costo por adelantado. 4% de comisión sólo al cerrar el trato. ProHogar Maquinaria Pesada.</p>
+    </form>
+  </div>
+</div>
+
+<footer>ProHogar Maquinaria Pesada · yan@prohogar.homes · +52 998 408 3668</footer>
+
+<script>
+  // ProHogar WhatsApp number (no secrets needed — this is a public deep link)
+  const WA_NUMBER = "529984083668";
+
+  const T = {
+    es: {
+      formTitle:"Déjanos tu especificación",
+      formSub:"Cuéntanos qué equipo buscas. Te enviamos listados en vivo — sin costo por adelantado, ganamos 4% al cerrar.",
+      name:"Tu nombre", email:"Email", phone:"WhatsApp (opcional)", machine:"Tipo de maquinaria",
+      model:"Modelo / marca", year:"Año", hours:"Horas", budget:"Presupuesto (USD)", location:"Ubicación de entrega",
+      notes:"Notas adicionales", submit:"Enviar mi spec", wa:"📲 Continuar por WhatsApp",
+      ok:"✅ Recibido. Haz clic abajo para enviarnos tu spec por WhatsApp.", err:"Faltan campos obligatorios."
+    },
+    en: {
+      formTitle:"Send us your spec",
+      formSub:"Tell us what machine you need. We send live listings — no upfront cost, we earn 4% on close.",
+      name:"Your name", email:"Email", phone:"WhatsApp (optional)", machine:"Machine type",
+      model:"Model / brand", year:"Year", hours:"Hours", budget:"Budget (USD)", location:"Delivery location",
+      notes:"Extra notes", submit:"Send my spec", wa:"📲 Continue on WhatsApp",
+      ok:"✅ Received. Click below to send us your spec on WhatsApp.", err:"Required fields missing."
+    }
+  };
+  let lang = 'es';
+  function setLang(l){
+    lang = l;
+    const t = T[l];
+    document.getElementById('formTitle').textContent = t.formTitle;
+    document.getElementById('formSub').textContent = t.formSub;
+    document.getElementById('lbl_name').textContent = t.name;
+    document.getElementById('lbl_email').textContent = t.email;
+    document.getElementById('lbl_phone').textContent = t.phone;
+    document.getElementById('lbl_machine').textContent = t.machine;
+    document.getElementById('lbl_model').textContent = t.model;
+    document.getElementById('lbl_year').textContent = t.year;
+    document.getElementById('lbl_hours').textContent = t.hours;
+    document.getElementById('lbl_budget').textContent = t.budget;
+    document.getElementById('lbl_location').textContent = t.location;
+    document.getElementById('lbl_notes').textContent = t.notes;
+    document.getElementById('submitBtn').textContent = t.submit;
+    document.getElementById('waBtn').textContent = t.wa;
+    document.documentElement.lang = l;
+  }
+
+  const form = document.getElementById("leadForm");
+  const msg = document.getElementById("msg");
+  const waBtn = document.getElementById("waBtn");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(form).entries());
+    if (!d.name || !d.email || !d.machine_type) {
+      msg.textContent = T[lang].err; msg.className = "err"; return;
+    }
+    // Build a pre-filled WhatsApp message from the spec
+    const lines = [
+      (lang==='es'?"Hola ProHogar, busco maquinaria:":"Hi ProHogar, I'm looking for machinery:"),
+      (lang==='es'?"Tipo: ":"Type: ") + (d.machine_type||""),
+      (d.model?((lang==='es'?"Modelo: ":"Model: ")+d.model):""),
+      (d.year?((lang==='es'?"Año: ":"Year: ")+d.year):""),
+      (d.hours?((lang==='es'?"Horas: ":"Hours: ")+d.hours):""),
+      (d.budget?((lang==='es'?"Presupuesto: USD ":"Budget: USD ")+d.budget):""),
+      (d.location?((lang==='es'?"Entrega en: ":"Delivery to: ")+d.location):""),
+      (lang==='es'?"Nombre: ":"Name: ")+d.name,
+      (lang==='es'?"Email: ":"Email: ")+d.email,
+      (d.phone?((lang==='es'?"WhatsApp: ":"WhatsApp: ")+d.phone):""),
+      (d.notes?((lang==='es'?"Notas: ":"Notes: ")+d.notes):"")
+    ].filter(Boolean);
+    const text = encodeURIComponent(lines.join("\n"));
+    waBtn.href = "https://wa.me/" + WA_NUMBER + "?text=" + text;
+    waBtn.style.display = "block";
+    msg.textContent = T[lang].ok; msg.className = "ok";
+    form.reset();
+  });
+  setLang('es');
+</script>
+</body>
+</html>
