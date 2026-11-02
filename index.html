@@ -304,15 +304,9 @@
   const FORMSPREE_ID = "xprohogar-leads-placeholder";
   const WA_NUMBER = "529984083668";
   function setLang(lang){
-    document.querySelectorAll('[data-es],[data-en]').forEach(function(el){
+    document.querySelectorAll('[data-es],[data-en],[data-fr],[data-de],[data-nl],[data-it],[data-pt]').forEach(function(el){
       var key = 'data-' + lang;
-      if (el.getAttribute(key) !== null) {
-        el.innerHTML = el.getAttribute(key);
-      } else if (el.getAttribute('data-en') !== null) {
-        el.innerHTML = el.getAttribute('data-en');
-      } else if (el.getAttribute('data-es') !== null) {
-        el.innerHTML = el.getAttribute('data-es');
-      }
+      el.style.display = (el.getAttribute(key) !== null) ? '' : 'none';
     });
     document.body.classList.remove('lang-es','lang-en','lang-fr','lang-de','lang-nl','lang-it','lang-pt');
     document.body.classList.add('lang-' + lang);
