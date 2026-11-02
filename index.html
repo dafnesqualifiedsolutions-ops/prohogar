@@ -298,6 +298,7 @@
      Replace FORMSPREE_ID with your actual Formspree form ID after signup. */
   const FORMSPREE_ID = "xprohogar-leads-placeholder";
   const WA_NUMBER = "529984083668";
+  function setLang(lang){
     document.querySelectorAll('[data-es],[data-en]').forEach(function(el){
       el.style.display = (el.getAttribute('data-' + lang) !== null) ? '' : 'none';
     });
@@ -486,11 +487,17 @@
     var btn = document.getElementById('ph-chat-btn');
     var close = document.getElementById('ph-chat-close');
     var body = document.getElementById('ph-chat-body');
-    var lang = 'es';
 
-    function t(es, en){ return lang === 'en' ? en : es; }
-    function setLang(l){ lang = l; }
-    window.setLang = function(l){ lang = l; };
+    function t(es, en){ return getLang() === 'en' ? en : es; }
+    function getLang(){
+      try { return document.body.classList.contains('lang-en') ? 'en' : 'es'; } catch(e){ return 'es'; }
+    }
+    var lang = getLang();
+    var originalSetLang = window.setLang;
+    window.setLang = function(l){
+      if (originalSetLang) originalSetLang(l);
+      lang = l;
+    };
 
     var SERVICES = [
       { es:'Plomería', en:'Plumbing' },
