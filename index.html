@@ -16,7 +16,7 @@
   "name": "ProHogar — Pros del hogar en la Riviera Maya",
   "description": "Directorio de profesionales del hogar verificados en la Riviera Maya (Tulum, Playa del Carmen, Puerto Morelos, Cancún): plomería, electricidad, aire acondicionado, paneles solares y más.",
   "url": "https://dafnesqualifiedsolutions-ops.github.io/prohogar/",
-  "telephone": "+52 998 329 2837",
+  "telephone": "+52 998 408 3668",
   "areaServed": [
     {"@type": "City", "name": "Tulum"},
     {"@type": "City", "name": "Playa del Carmen"},
@@ -117,19 +117,44 @@
   body.lang-es [data-es]{display:inline !important}
   body.lang-en [data-es]{display:none !important}
   body.lang-en [data-en]{display:inline !important}
+
+  /* === ProHogar Chat Widget (zero-cost) === */
+  #ph-chat-btn{position:fixed;bottom:22px;right:22px;width:58px;height:58px;border-radius:50%;background:var(--pro-navy);color:#fff;border:none;font-size:1.6rem;cursor:pointer;box-shadow:0 6px 22px rgba(0,0,0,.35);z-index:90;display:flex;align-items:center;justify-content:center;transition:transform .2s}
+  #ph-chat-btn:hover{transform:scale(1.08)}
+  #ph-chat{position:fixed;bottom:90px;right:22px;width:min(360px,calc(100vw - 44px));background:#fff;border-radius:18px;box-shadow:0 12px 40px rgba(0,0,0,.22);z-index:90;display:none;flex-direction:column;overflow:hidden;font-family:var(--sans);border:1px solid var(--line)}
+  #ph-chat.open{display:flex}
+  #ph-chat-header{background:var(--pro-navy);color:#fff;padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
+  #ph-chat-header strong{font-size:1rem}
+  #ph-chat-header button{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer}
+  #ph-chat-body{padding:16px;max-height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+  .ph-msg{background:var(--card);border-radius:12px;padding:10px 13px;font-size:.92rem;line-height:1.45;color:var(--ink);border:1px solid var(--line)}
+  .ph-choices{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+  .ph-choice{background:#fff;border:1px solid var(--pro-navy);color:var(--pro-navy);border-radius:20px;padding:7px 13px;font-size:.82rem;font-weight:600;cursor:pointer;font-family:var(--sans)}
+  .ph-choice:hover{background:var(--pro-navy);color:#fff}
+  .ph-input-row{display:flex;gap:8px;margin-top:4px}
+  .ph-input-row input{flex:1;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-family:var(--sans);font-size:.9rem;background:#fff;color:var(--ink)}
+  .ph-send{background:var(--hogar-terracotta);color:#fff;border:none;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;font-family:var(--sans)}
+  .ph-send:hover{filter:brightness(1.1)}
+  #ph-chat-footer{padding:10px 16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:8px}
+  #ph-chat-footer a{color:var(--pro-navy);font-weight:700;text-decoration:none;font-size:.85rem}
+  @media(max-width:560px){
+    #ph-chat{right:10px;bottom:82px;width:calc(100vw - 20px)}
+    #ph-chat-btn{right:12px;bottom:14px;width:52px;height:52px;font-size:1.4rem}
+  }
 </style>
 </head>
 <body>
+<a href="#main-content" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden" onfocus="this.style.left='6px';this.style.top='6px';this.style.width='auto';this.style.height='auto';this.style.overflow='visible'">Saltar al contenido</a>
 <header>
   <div class="bar">
     <div class="brand-logo">
-      <img src="logo.png" alt="ProHogar" class="brand-img" />
+      <img src="logo.png" alt="ProHogar" class="brand-img" loading="lazy" />
       <p class="tagline"><span data-es>Tu hogar en las mejores manos</span><span data-en>Your home in trusted hands</span></p>
     </div>
     <div class="lang">
       <button id="btn-es" class="active" onclick="setLang('es')">🇲🇽 ES</button>
-      <button id="btn-en" onclick="setLang('en')">🇺🇸 EN</button>
-      <a class="deals-btn" href="#maquinaria" style="background:var(--pro-navy);border-color:var(--pro-navy)">🚜 <span data-es>MAQUINARIA</span> <span data-en>MACHINERY</span></a>
+      <button id="btn-en" onclick="setLang('en')">🇬🇧 EN</button>
+      <a class="deals-btn" href="#maquinaria">🚜 <span data-es>MAQUINARIA</span> <span data-en>MACHINERY</span></a>
       <a class="deals-btn" href="ofertas.html">🔥 <span data-es>OFERTAS</span> <span data-en>DEALS</span></a>
     </div>
   </div>
@@ -140,6 +165,15 @@
   <p><span data-es>Encontramos a los mejores profesionales locales en Tulum, Playa del Carmen, Puerto Morelos y Cancún. Plomería, electricidad, aire acondicionado, paneles solares y más. Cuéntanos tu proyecto y te conectamos gratis.</span><span data-en>We connect you with trusted local pros across Tulum, Playa del Carmen, Puerto Morelos, and Cancún. Plumbing, electrical, AC, solar, and more. Tell us your job and we'll match you with the right pro—free.</span></p>
   <a class="wa-btn" href="https://wa.me/529984083668?text=Hola%20ProHogar,%20quiero%20pedir%20un%20servicio">📱 <span data-es>Escríbenos por WhatsApp</span><span data-en>Message on WhatsApp</span></a>
   <div class="area">📍 <span data-es>Tulum · Playa del Carmen · Puerto Morelos · Cancún</span><span data-en>Tulum · Playa del Carmen · Puerto Morelos · Cancún</span></div>
+</section>
+
+<section id="trust" style="background:var(--pro-navy);color:#fff;padding:28px 20px;text-align:center">
+  <div style="max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:center;gap:28px">
+    <div><span style="font-size:1.6rem;font-weight:800;font-family:var(--serif);display:block">4 zonas</span><span style="font-size:.82rem;opacity:.85"><span data-es>Tulum a Cancún</span><span data-en>Tulum to Cancún</span></span></div>
+    <div><span style="font-size:1.6rem;font-weight:800;font-family:var(--serif);display:block">12+</span><span style="font-size:.82rem;opacity:.85"><span data-es>oficios verificados</span><span data-en>verified trades</span></span></div>
+    <div><span style="font-size:1.6rem;font-weight:800;font-family:var(--serif);display:block">4%</span><span style="font-size:.82rem;opacity:.85"><span data-es>comisión solo al cerrar</span><span data-en>commission only on close</span></span></div>
+    <div><span style="font-size:1.6rem;font-weight:800;font-family:var(--serif);display:block">0</span><span style="font-size:.82rem;opacity:.85"><span data-es>costo por adelantado</span><span data-en>upfront cost</span></span></div>
+  </div>
 </section>
 
 <section id="categories">
@@ -173,10 +207,10 @@
   <h2><span data-es>Nuestro trabajo</span><span data-en>Our work</span></h2>
   <p class="lead"><span data-es>Pros verificados de la Riviera Maya en acción: electricidad, plomería, paneles solares y más.</span><span data-en>Vetted Riviera Maya pros on the job: electrical, plumbing, solar panels, and more.</span></p>
   <div class="work-grid">
-    <figure><img src="img/electrician.jpg" alt="Electricista trabajando" /><figcaption><span data-es>Electricidad</span><span data-en>Electrical</span></figcaption></figure>
-    <figure><img src="img/plumber.jpg" alt="Plomero en trabajo" /><figcaption><span data-es>Plomería</span><span data-en>Plumbing</span></figcaption></figure>
-    <figure><img src="img/solar.jpg" alt="Instalación de paneles solares" /><figcaption><span data-es>Paneles solares</span><span data-en>Solar panels</span></figcaption></figure>
-    <figure><img src="img/ac.jpg" alt="Técnico de aire acondicionado" /><figcaption><span data-es>Aire acondicionado</span><span data-en>Air conditioning</span></figcaption></figure>
+    <figure><img src="img/electrician.jpg" alt="Electricista trabajando" loading="lazy" /><figcaption><span data-es>Electricidad</span><span data-en>Electrical</span></figcaption></figure>
+    <figure><img src="img/plumber.jpg" alt="Plomero en trabajo" loading="lazy" /><figcaption><span data-es>Plomería</span><span data-en>Plumbing</span></figcaption></figure>
+    <figure><img src="img/solar.jpg" alt="Instalación de paneles solares" loading="lazy" /><figcaption><span data-es>Paneles solares</span><span data-en>Solar panels</span></figcaption></figure>
+    <figure><img src="img/ac.jpg" alt="Técnico de aire acondicionado" loading="lazy" /><figcaption><span data-es>Aire acondicionado</span><span data-en>Air conditioning</span></figcaption></figure>
   </div>
   <p style="text-align:center;margin-top:22px"><a class="btn-primary" style="display:inline-block;width:auto;text-decoration:none" href="ofertas.html"><span data-es>🔥 Ver Ofertas Exclusivas del Mes</span><span data-en>🔥 See Exclusive Monthly Deals</span></a></p>
 </section>
@@ -186,7 +220,8 @@
   <p class="lead" style="color:#dcebe4;max-width:680px;margin:0 auto 18px"><span data-es>ProHogar localiza maquinaria pesada usada en Estados Unidos y la envía a donde la necesites — excavadoras, bulldozers CAT (D6/D8/D9), camiones articulados, cargadores, motoniveladoras. Cotización a medida, sin anticipos.</span><span data-en>ProHogar sources used heavy equipment across the US and ships it wherever you need it — excavators, CAT dozers (D6/D8/D9), articulated dump trucks, loaders, graders. Custom quote, no upfront fees.</span></p>
   <a class="wa-btn" style="background:#25d366" href="https://wa.me/529984083668?text=Hola%20ProHogar,%20busco%20maquinaria%20pesada%20(especificar%20modelo/a%C3%B1o/horas/presupuesto)"><span data-es>📱 Escríbenos tu requisición</span><span data-en>📱 Message your spec</span></a>
   <p style="margin-top:16px"><a class="btn-light" style="display:inline-block;background:#fff;color:var(--pro-navy);text-decoration:none;padding:13px 28px;border-radius:30px;font-weight:700" href="intake.html"><span data-es>📝 Formulario de especificación (completa tu spec)</span><span data-en>📝 Specification form (fill in your spec)</span></a></p>
-  <p style="margin-top:14px;font-size:.85rem;opacity:.85"><span data-es>Dozers · Excavadoras 30+ ton · Camiones articulados · Cargadores · Motoniveladoras · Skid steers</span><span data-en>Dozers · 30+ ton excavators · Articulated dump trucks · Loaders · Graders · Skid steers</span></p>
+  <p><span data-es>Dozers · Excavadoras 30+ ton · Camiones articulados · Cargadores · Motoniveladoras · Skid steers</span><span data-en>Dozers · 30+ ton excavators · Articulated dump trucks · Loaders · Graders · Skid steers</span></p>
+  <a class="book" href="intake.html" style="display:inline-block;margin-top:14px;background:#fff;color:var(--pro-navy);padding:13px 26px;border-radius:30px;font-weight:700;text-decoration:none">📝 <span data-es>Llena tu especificación</span><span data-en>Fill in your spec</span></a>
 </section>
 
 <section id="post">
@@ -244,16 +279,25 @@
   </form>
 </section>
 
+<section id="leads" style="background:var(--card);padding:32px 20px">
+  <h2><span data-es>📥 Bandeja de leads (local)</span><span data-en>📥 Leads inbox (local)</span></h2>
+  <p class="lead"><span data-es>Los últimos 20 leads capturados aparecen aquí. También los recibes por email en Formspree cuando configures el endpoint.</span><span data-en>The last 20 captured leads appear here. You also receive them by email via Formspree once you configure the endpoint.</span></p>
+  <div id="leads-inbox" style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;min-height:48px"></div>
+</section>
+
 <footer>
   ProHogar · Riviera Maya (Tulum–Cancún) &nbsp;|&nbsp; <a href="https://wa.me/529984083668">WhatsApp</a> &nbsp;|&nbsp; <a href="mailto:yan@prohogar.homes">yan@prohogar.homes</a>
   <div class="qr">
-    <img src="qr-prohogar.png" alt="Código QR de ProHogar" />
+    <img src="qr-prohogar.png" alt="Código QR de ProHogar" loading="lazy" />
     <p class="qr-cap"><span data-es>Escanea para abrir ProHogar</span><span data-en>Scan to open ProHogar</span></p>
   </div>
 </footer>
 
 <script>
-  function setLang(lang){
+  /* Lead capture: Formspree primary, WhatsApp fallback.
+     Replace FORMSPREE_ID with your actual Formspree form ID after signup. */
+  const FORMSPREE_ID = "xprohogar-leads-placeholder";
+  const WA_NUMBER = "529984083668";
     document.querySelectorAll('[data-es],[data-en]').forEach(function(el){
       el.style.display = (el.getAttribute('data-' + lang) !== null) ? '' : 'none';
     });
@@ -322,53 +366,232 @@
     pg.appendChild(d);
   });
 
-  // ProHogar form: pre-fill a WhatsApp message (works on GitHub Pages, no backend).
-  var f=document.getElementById('job-form');
-  if(f) f.addEventListener('submit', function(e){
+  // Lead capture: Formspree primary, WhatsApp fallback.
+  const FORMSPREE_ID = "xprohogar-leads-placeholder";
+  const WA_NUMBER = "529984083668";
+
+  function submitToFormspree(form, data) {
+    return fetch("https://formspree.io/f/" + FORMSPREE_ID, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(data)
+    }).then(r => r.ok ? r.json() : Promise.reject(r));
+  }
+
+  function waLink(text) { return "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(text); }
+
+  // Job form: post to Formspree first, WhatsApp as fallback/secondary
+  var f = document.getElementById('job-form');
+  if (f) f.addEventListener('submit', function(e) {
     e.preventDefault();
-    var name=document.getElementById('name').value.trim();
-    var contact=document.getElementById('contact').value.trim();
-    var area=document.getElementById('area').value;
-    var category=document.getElementById('category').value;
-    var desc=document.getElementById('description').value.trim();
-    if(!name || !contact || !area || !category || !desc){
-      var s0=document.getElementById('form-status');
-      if(s0){ s0.className='form-status err'; s0.textContent='* Por favor completa todos los campos.'; }
+    var name = document.getElementById('name').value.trim();
+    var contact = document.getElementById('contact').value.trim();
+    var area = document.getElementById('area').value;
+    var category = document.getElementById('category').value;
+    var desc = document.getElementById('description').value.trim();
+    var s = document.getElementById('form-status');
+    if (!name || !contact || !area || !category || !desc) {
+      if (s) { s.className = 'form-status err'; s.textContent = '* Por favor completa todos los campos.'; }
       return;
     }
-    var msg='Hola ProHogar, nuevo trabajo:%0A%0A'+
-      '*Nombre:* '+name+'%0A'+
-      '*Contacto:* '+contact+'%0A'+
-      '*Zona:* '+area+'%0A'+
-      '*Categoría:* '+category+'%0A'+
-      '*Detalle:* '+desc;
-    var s=document.getElementById('form-status');
-    if(s){ s.className='form-status ok'; s.textContent='✓ Abriendo WhatsApp con tu solicitud…'; }
-    window.open('https://wa.me/529984083668?text='+msg, '_blank');
+    var data = { name: name, contact: contact, area: area, category: category, description: desc, source: 'prohogar-job-form', _subject: 'Nueva solicitud de trabajo - ProHogar' };
+    submitToFormspree(f, data)
+      .then(function() {
+        if (s) { s.className = 'form-status ok'; s.textContent = '✅ Recibido. Un pro te contacta en menos de 2h. También puedes escribirnos por WhatsApp:'; }
+        var waA = document.createElement('a');
+        waA.href = waLink('Hola ProHogar, ya envié mi solicitud por la web. Confirmen recepción.');
+        waA.textContent = '📱 WhatsApp';
+        waA.style.cssText = 'display:inline-block;margin-top:8px;color:var(--pro-navy);font-weight:700;text-decoration:none;';
+        f.parentNode.insertBefore(waA, s.nextSibling);
+        f.reset();
+      })
+      .catch(function() {
+        if (s) { s.className = 'form-status err'; s.textContent = '⚠ Error de conexión. Usa WhatsApp para enviar tu solicitud:'; }
+        var waA = document.createElement('a');
+        waA.href = waLink('Hola ProHogar, quiero pedir un servicio: ' + desc);
+        waA.textContent = '📱 WhatsApp';
+        waA.style.cssText = 'display:inline-block;margin-top:8px;color:var(--pro-navy);font-weight:700;text-decoration:none;';
+        f.parentNode.insertBefore(waA, s.nextSibling);
+      });
   });
 
-  // Pro sign-up: pre-fill a WhatsApp message to ProHogar.
-  var pf=document.getElementById('pro-form');
-  if(pf) pf.addEventListener('submit', function(e){
+  // Pro sign-up: Formspree primary, WhatsApp fallback
+  var pf = document.getElementById('pro-form');
+  if (pf) pf.addEventListener('submit', function(e) {
     e.preventDefault();
-    var pn=document.getElementById('pro-name').value.trim();
-    var pw=document.getElementById('pro-wa').value.trim();
-    var pt=document.getElementById('pro-trade').value;
-    var pa=document.getElementById('pro-area').value;
-    if(!pn || !pw || !pt || !pa){
-      var ps0=document.getElementById('pro-status');
-      if(ps0){ ps0.className='form-status err'; ps0.textContent='* Por favor completa todos los campos.'; }
+    var pn = document.getElementById('pro-name').value.trim();
+    var pw = document.getElementById('pro-wa').value.trim();
+    var pt = document.getElementById('pro-trade').value;
+    var pa = document.getElementById('pro-area').value;
+    var ps = document.getElementById('pro-status');
+    if (!pn || !pw || !pt || !pa) {
+      if (ps) { ps.className = 'form-status err'; ps.textContent = '* Por favor completa todos los campos.'; }
       return;
     }
-    var pmsg='Hola ProHogar, soy profesional titulado/con experiencia y envío mi solicitud para recibir leads:%0A%0A'+
-      '*Nombre:* '+pn+'%0A'+
-      '*WhatsApp:* '+pw+'%0A'+
-      '*Oficio:* '+pt+'%0A'+
-      '*Zona:* '+pa;
-    var ps=document.getElementById('pro-status');
-    if(ps){ ps.className='form-status ok'; ps.textContent='✓ Abriendo WhatsApp para registrarte…'; }
-    window.open('https://wa.me/529984083668?text='+pmsg, '_blank');
+    var data = { name: pn, whatsapp: pw, trade: pt, area: pa, source: 'prohogar-pro-signup', _subject: 'Nuevo registro de profesional - ProHogar' };
+    submitToFormspree(pf, data)
+      .then(function() {
+        if (ps) { ps.className = 'form-status ok'; ps.textContent = '✅ Solicitud recibida. Te avisamos en 24h. También puedes escribirnos:'; }
+        var waA = document.createElement('a');
+        waA.href = waLink('Hola ProHogar, envié mi solicitud para ser profesional. Nombre: ' + pn + ', Oficio: ' + pt);
+        waA.textContent = '📱 WhatsApp';
+        waA.style.cssText = 'display:inline-block;margin-top:8px;color:var(--pro-navy);font-weight:700;text-decoration:none;';
+        pf.parentNode.insertBefore(waA, ps.nextSibling);
+        pf.reset();
+      })
+      .catch(function() {
+        if (ps) { ps.className = 'form-status err'; ps.textContent = '⚠ Error de conexión. Continúa por WhatsApp:'; }
+        var waA = document.createElement('a');
+        waA.href = waLink('Hola ProHogar, soy profesional (' + pt + ') y quiero unirme.');
+        waA.textContent = '📱 WhatsApp';
+        waA.style.cssText = 'display:inline-block;margin-top:8px;color:var(--pro-navy);font-weight:700;text-decoration:none;';
+        pf.parentNode.insertBefore(waA, ps.nextSibling);
+      });
   });
+
+  // Local leads log (browser-side backup so you can see recent submissions)
+  function saveLead(lead) {
+    var leads = JSON.parse(localStorage.getItem('ph_leads') || '[]');
+    leads.unshift(lead);
+    if (leads.length > 20) leads = leads.slice(0, 20);
+    localStorage.setItem('ph_leads', JSON.stringify(leads));
+    renderLeads();
+  }
+  function renderLeads() {
+    var box = document.getElementById('leads-inbox');
+    if (!box) return;
+    var leads = JSON.parse(localStorage.getItem('ph_leads') || '[]');
+    if (!leads.length) { box.innerHTML = '<p style="color:var(--muted);font-size:.85rem">No leads captured yet. Leads from Formspree will also appear here when they submit.</p>'; return; }
+    var html = '<table style="width:100%;border-collapse:collapse;font-size:.85rem"><thead><tr style="background:var(--pro-navy);color:#fff"><th style="padding:8px;text-align:left">Time</th><th style="padding:8px;text-align:left">Source</th><th style="padding:8px;text-align:left">Name</th><th style="padding:8px;text-align:left">Contact</th></tr></thead><tbody>';
+    leads.forEach(function(l) {
+      html += '<tr style="border-bottom:1px solid var(--line)"><td style="padding:8px;white-space:nowrap">' + l.time + '</td><td style="padding:8px">' + l.source + '</td><td style="padding:8px">' + l.name + '</td><td style="padding:8px">' + l.contact + '</td></tr>';
+    });
+    html += '</tbody></table>';
+    box.innerHTML = html;
+  }
+  // Hook into successful Formspree submissions to log locally
+  var origSubmitToFormspree = submitToFormspree;
+  submitToFormspree = function(form, data) {
+    return origSubmitToFormspree(form, data).then(function(res) {
+      saveLead({ time: new Date().toLocaleString(), source: (data.source || 'web'), name: (data.name || '-'), contact: (data.contact || data.email || data.whatsapp || '-') });
+      return res;
+    }).catch(function(err) { return Promise.reject(err); });
+  };
+  renderLeads();
+
+  /* === ProHogar Chat Widget (zero cost) === */
+  (function(){
+    var chat = document.getElementById('ph-chat');
+    var btn = document.getElementById('ph-chat-btn');
+    var close = document.getElementById('ph-chat-close');
+    var body = document.getElementById('ph-chat-body');
+    var lang = 'es';
+
+    function t(es, en){ return lang === 'en' ? en : es; }
+    function setLang(l){ lang = l; }
+    window.setLang = function(l){ lang = l; };
+
+    var SERVICES = [
+      { es:'Plomería', en:'Plumbing' },
+      { es:'Electricidad', en:'Electrical' },
+      { es:'Aire acondicionado', en:'Air conditioning' },
+      { es:'Paneles solares', en:'Solar panels' },
+      { es:'Albañilería', en:'Masonry' },
+      { es:'Pintura', en:'Painting' },
+      { es:'Carpintería', en:'Carpentry' },
+      { es:'Herrería', en:'Metalwork' },
+      { es:'Impermeabilización', en:'Waterproofing' },
+      { es:'Jardinería', en:'Gardening' },
+      { es:'Piscinas', en:'Pools' },
+      { es:'Limpieza', en:'Cleaning' },
+      { es:'Maquinaria pesada', en:'Heavy machinery' },
+      { es:'Otro', en:'Other' }
+    ];
+    var AREAS = ['Tulum','Playa del Carmen','Puerto Morelos','Cancún'];
+    var state = {};
+
+    function msg(text, bubbles){ var d=document.createElement('div'); d.className='ph-msg'; d.textContent=text; body.appendChild(d); if(bubbles) body.scrollTop=body.scrollHeight; }
+    function choices(items, onPick){
+      var row=document.createElement('div'); row.className='ph-choices';
+      items.forEach(function(it){
+        var b=document.createElement('button'); b.className='ph-choice'; b.type='button';
+        b.textContent = typeof it==='string' ? it : (lang==='en'?it.en:it.es);
+        b.onclick=function(){ row.remove(); onPick(typeof it==='string'?it:it.es); };
+        row.appendChild(b);
+      });
+      body.appendChild(row); body.scrollTop=body.scrollHeight;
+    }
+    function inputRow(placeholder, onSend){
+      var row=document.createElement('div'); row.className='ph-input-row';
+      var inp=document.createElement('input'); inp.type='text'; inp.placeholder=placeholder;
+      var btn=document.createElement('button'); btn.className='ph-send'; btn.type='button'; btn.textContent=t('Enviar','Send');
+      btn.onclick=function(){ var v=inp.value.trim(); if(!v) return; row.remove(); onSend(v); };
+      inp.addEventListener('keydown',function(e){ if(e.key==='Enter'){ btn.click(); } });
+      row.appendChild(inp); row.appendChild(btn); body.appendChild(row); inp.focus(); body.scrollTop=body.scrollHeight;
+    }
+
+    function start(){
+      state={};
+      body.innerHTML=''; msg(t('👋 ¿Qué servicio necesitas?','👋 What service do you need?'), true);
+      choices(SERVICES, function(svc){
+        state.service = svc;
+        msg(t('📍 ¿En qué zona?','📍 Which area?'), true);
+        choices(AREAS, function(area){
+          state.area = area;
+          msg(t('👤 ¿Tu nombre y WhatsApp?','👤 Your name and WhatsApp?'), true);
+          inputRow(t('Ej: Juan / 9981234567','Ex: John / 447912345678'), function(contact){
+            state.contact = contact;
+            finish();
+          });
+        });
+      });
+    }
+
+    function finish(){
+      msg(t('✅ Gracias. Te conectamos con un pro en menos de 24h. También puedes escribirnos directo:','✅ Thanks. We\'ll match you with a pro within 24h. You can also message us directly:'), true);
+      var wa = 'https://wa.me/529984083668?text=' + encodeURIComponent(
+        t('Hola ProHogar, necesito ' + state.service + ' en ' + state.area + '. Nombre/WhatsApp: ' + state.contact,
+          'Hi ProHogar, I need ' + (lang==='en'?translateService(state.service):state.service) + ' in ' + state.area + '. Name/Phone: ' + state.contact)
+      );
+      var a=document.createElement('a'); a.className='ph-choice'; a.textContent='📱 WhatsApp'; a.href=wa; a.target='_blank'; a.rel='noopener';
+      var row=document.createElement('div'); row.className='ph-choices'; row.appendChild(a); body.appendChild(row); body.scrollTop=body.scrollHeight;
+
+      // Also fill the job form so they can submit there if they prefer
+      try {
+        var nameEl=document.getElementById('name'); var contactEl=document.getElementById('contact');
+        var areaEl=document.getElementById('area'); var descEl=document.getElementById('description');
+        if(nameEl){ var parts=state.contact.split('/'); nameEl.value=parts[0]?parts[0].trim():''; }
+        if(contactEl){ var parts2=state.contact.split('/'); contactEl.value=parts2[1]?parts2[1].trim():''; }
+        if(areaEl){ for(var i=0;i<areaEl.options.length;i++){ if(areaEl.options[i].text===state.area){ areaEl.selectedIndex=i; break; } } }
+        if(descEl){ descEl.value = t('Necesito ' + state.service + ' en ' + state.area, 'I need ' + state.service + ' in ' + state.area); }
+      } catch(e){}
+    }
+
+    function translateService(svc){
+      var m={Plomería:'Plumbing',Electricidad:'Electrical','Aire acondicionado':'Air conditioning','Paneles solares':'Solar panels',Albañilería:'Masonry',Pintura:'Painting',Carpintería:'Carpentry',Herrería:'Metalwork',Impermeabilización:'Waterproofing',Jardinería:'Gardening',Piscinas:'Pools',Limpieza:'Cleaning','Maquinaria pesada':'Heavy machinery'};
+      return m[svc]||svc;
+    }
+
+    btn.onclick=function(){ if(!chat.classList.contains('open')){ chat.classList.add('open'); start(); } else { chat.classList.remove('open'); } };
+    close.onclick=function(){ chat.classList.remove('open'); };
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape') chat.classList.remove('open'); });
+  })();
 </script>
+
+<!-- ProHogar Chat Widget -->
+<button id="ph-chat-btn" aria-label="Chat">💬</button>
+<div id="ph-chat" role="dialog" aria-label="Chat">
+  <div id="ph-chat-header">
+    <strong>ProHogar <span data-es>— cuéntanos tu proyecto</span><span data-en>— tell us about your job</span></strong>
+    <button id="ph-chat-close" aria-label="Close">✕</button>
+  </div>
+  <div id="ph-chat-body">
+    <div class="ph-msg" id="ph-msg-0"><span data-es>👋 ¿Qué servicio necesitas?</span><span data-en>👋 What service do you need?</span></div>
+  </div>
+  <div id="ph-chat-footer">
+    <a href="https://wa.me/529984083668" target="_blank" rel="noopener">📱 WhatsApp</a>
+    <span style="font-size:.75rem;color:var(--muted)"><span data-es>Gratis, sin tarjeta</span><span data-en>Free, no card</span></span>
+  </div>
+</div>
 </body>
 </html>

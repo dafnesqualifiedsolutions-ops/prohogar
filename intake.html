@@ -80,8 +80,18 @@
 <footer>ProHogar Maquinaria Pesada · yan@prohogar.homes · +52 998 408 3668</footer>
 
 <script>
-  // ProHogar WhatsApp number (no secrets needed — this is a public deep link)
+  const FORMSPREE_ID = "xprohogar-leads-placeholder";
   const WA_NUMBER = "529984083668";
+
+  function submitToFormspree(form, data) {
+    return fetch("https://formspree.io/f/" + FORMSPREE_ID, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(data)
+    }).then(r => r.ok ? r.json() : Promise.reject(r));
+  }
+
+  function waLink(text) { return "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(text); }
 
   const T = {
     es: {
@@ -125,31 +135,46 @@
   const form = document.getElementById("leadForm");
   const msg = document.getElementById("msg");
   const waBtn = document.getElementById("waBtn");
-  form.addEventListener("submit", (e) => {
+  const form = document.getElementById("leadForm");
+  const msg = document.getElementById("msg");
+  const waBtn = document.getElementById("waBtn");
+  form.addEventListener("submit", function(e) {
     e.preventDefault();
     const d = Object.fromEntries(new FormData(form).entries());
     if (!d.name || !d.email || !d.machine_type) {
       msg.textContent = T[lang].err; msg.className = "err"; return;
     }
-    // Build a pre-filled WhatsApp message from the spec
-    const lines = [
-      (lang==='es'?"Hola ProHogar, busco maquinaria:":"Hi ProHogar, I'm looking for machinery:"),
-      (lang==='es'?"Tipo: ":"Type: ") + (d.machine_type||""),
-      (d.model?((lang==='es'?"Modelo: ":"Model: ")+d.model):""),
-      (d.year?((lang==='es'?"Año: ":"Year: ")+d.year):""),
-      (d.hours?((lang==='es'?"Horas: ":"Hours: ")+d.hours):""),
-      (d.budget?((lang==='es'?"Presupuesto: USD ":"Budget: USD ")+d.budget):""),
-      (d.location?((lang==='es'?"Entrega en: ":"Delivery to: ")+d.location):""),
-      (lang==='es'?"Nombre: ":"Name: ")+d.name,
-      (lang==='es'?"Email: ":"Email: ")+d.email,
-      (d.phone?((lang==='es'?"WhatsApp: ":"WhatsApp: ")+d.phone):""),
-      (d.notes?((lang==='es'?"Notas: ":"Notes: ")+d.notes):"")
-    ].filter(Boolean);
-    const text = encodeURIComponent(lines.join("\n"));
-    waBtn.href = "https://wa.me/" + WA_NUMBER + "?text=" + text;
-    waBtn.style.display = "block";
-    msg.textContent = T[lang].ok; msg.className = "ok";
-    form.reset();
+    var okEs = "✅ Recibido. Te enviamos listados en vivo — revisa tu email. También puedes escribirnos por WhatsApp:";
+    var okEn = "✅ Received. We'll send live listings — check your email. You can also message us on WhatsApp:";
+    var waTextEs = "Hola ProHogar, ya llené el formulario de maquinaria. Confirmen recepción.";
+    var waTextEn = "Hi ProHogar, I filled the machinery form. Please confirm receipt.";
+    submitToFormspree(form, Object.assign({}, d, { source: 'prohogar-machinery-intake', _subject: 'Nueva requisición de maquinaria - ProHogar' }))
+      .then(function() {
+        msg.textContent = (lang === 'es' ? okEs : okEn);
+        msg.className = "ok";
+        waBtn.href = waLink(lang === 'es' ? waTextEs : waTextEn);
+        waBtn.style.display = "block";
+        form.reset();
+      })
+      .catch(function() {
+        msg.textContent = (lang === 'es' ? "⚠ Error de conexión. Usa WhatsApp para enviar tu spec:" : "⚠ Connection error. Use WhatsApp to send your spec:");
+        msg.className = "err";
+        var lines = [
+          (lang==='es'?"Hola ProHogar, busco maquinaria:":"Hi ProHogar, I'm looking for machinery:"),
+          (lang==='es'?"Tipo: ":"Type: ") + (d.machine_type||""),
+          (d.model?((lang==='es'?"Modelo: ":"Model: ")+d.model):""),
+          (d.year?((lang==='es'?"Año: ":"Year: ")+d.year):""),
+          (d.hours?((lang==='es'?"Horas: ":"Hours: ")+d.hours):""),
+          (d.budget?((lang==='es'?"Presupuesto: USD ":"Budget: USD ")+d.budget):""),
+          (d.location?((lang==='es'?"Entrega en: ":"Delivery to: ")+d.location):""),
+          (lang==='es'?"Nombre: ":"Name: ")+d.name,
+          (lang==='es'?"Email: ":"Email: ")+d.email,
+          (d.phone?((lang==='es'?"WhatsApp: ":"WhatsApp: ")+d.phone):""),
+          (d.notes?((lang==='es'?"Notas: ":"Notes: ")+d.notes):"")
+        ].filter(Boolean).join("\n");
+        waBtn.href = waLink(lines);
+        waBtn.style.display = "block";
+      });
   });
   setLang('es');
 </script>
