@@ -43,11 +43,11 @@
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6}
   header{position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);border-top:4px solid var(--pro-navy);z-index:50}
-  .bar{max-width:1100px;margin:0 auto;position:relative;display:flex;align-items:center;justify-content:center;padding:12px 130px 12px 20px;gap:10px}
-  .brand-logo{display:flex;flex-direction:column;align-items:center;text-align:center;line-height:1}
-  .brand-logo img.brand-img{height:160px;width:auto;display:block}
+  .bar{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:10px 20px;gap:12px}
+  .brand-logo{display:flex;flex-direction:column;align-items:flex-start;text-align:left;line-height:1;flex-shrink:0}
+  .brand-logo img.brand-img{height:80px;width:auto;display:block}
   .tagline{font-size:.7rem;color:var(--muted);margin-top:4px;font-weight:500}
-  .lang{position:absolute;right:16px;top:14px;display:flex;gap:6px}
+  .lang{display:flex;gap:6px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
   .lang button{background:none;border:1px solid var(--line);border-radius:20px;padding:6px 12px;cursor:pointer;font-size:.82rem;color:var(--ink);font-weight:600}
   .lang button.active{background:var(--pro-navy);color:#fff;border-color:var(--pro-navy)}
   .lang .deals-btn{background:var(--hogar-terracotta);color:#fff;border:1px solid var(--hogar-terracotta);border-radius:20px;padding:6px 12px;cursor:pointer;font-size:.82rem;font-weight:700;text-decoration:none;animation:pulse 1.8s infinite;display:inline-block}
@@ -106,10 +106,10 @@
   .qr img{width:160px;height:160px;display:block;margin:0 auto;border-radius:10px;background:#fff;padding:8px}
   .qr-cap{font-size:.8rem;color:#dcebe4;margin-top:8px}
   @media(max-width:560px){
-    .brand{font-size:1.35rem}.hero{padding:48px 16px}.brand-logo img.brand-img{height:92px}
-    .bar{justify-content:space-between;padding:12px 20px;flex-wrap:wrap}
-    .brand-logo{flex:1 1 100%;margin-bottom:8px}
-    .lang{position:static;transform:none;flex-direction:row;align-items:center;margin:0 auto}
+    .brand{font-size:1.35rem}.hero{padding:48px 16px}.brand-logo img.brand-img{height:60px}
+    .bar{flex-wrap:wrap;justify-content:center;padding:10px 12px;gap:8px}
+    .brand-logo{flex:1 1 100%;align-items:center;text-align:center}
+    .lang{flex-wrap:wrap;justify-content:center}
     .lang .deals-btn{margin-top:0}
   }
   /* Language fallback: hide inactive language via body class (defends against inline-style overrides) */
