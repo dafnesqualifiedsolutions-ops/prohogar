@@ -480,7 +480,8 @@
   renderLeads();
 
   /* === ProHogar Chat Widget (zero cost) === */
-  (function(){
+  document.addEventListener('DOMContentLoaded', function(){
+    (function(){
     var chat = document.getElementById('ph-chat');
     var btn = document.getElementById('ph-chat-btn');
     var close = document.getElementById('ph-chat-close');
@@ -575,7 +576,8 @@
     btn.onclick=function(){ if(!chat.classList.contains('open')){ chat.classList.add('open'); start(); } else { chat.classList.remove('open'); } };
     close.onclick=function(){ chat.classList.remove('open'); };
     document.addEventListener('keydown',function(e){ if(e.key==='Escape') chat.classList.remove('open'); });
-  })();
+    })();
+  });
 </script>
 
 <!-- ProHogar Chat Widget -->
