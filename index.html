@@ -154,6 +154,11 @@
     <div class="lang">
       <button id="btn-es" class="active" onclick="setLang('es')">🇲🇽 ES</button>
       <button id="btn-en" onclick="setLang('en')">🇬🇧 EN</button>
+      <button id="btn-fr" onclick="setLang('fr')">🇫🇷 FR</button>
+      <button id="btn-de" onclick="setLang('de')">🇩🇪 DE</button>
+      <button id="btn-nl" onclick="setLang('nl')">🇳🇱 NL</button>
+      <button id="btn-it" onclick="setLang('it')">🇮🇹 IT</button>
+      <button id="btn-pt" onclick="setLang('pt')">🇧🇷 PT</button>
       <a class="deals-btn" href="#maquinaria">🚜 <span data-es>MAQUINARIA</span> <span data-en>MACHINERY</span></a>
       <a class="deals-btn" href="ofertas.html">🔥 <span data-es>OFERTAS</span> <span data-en>DEALS</span></a>
     </div>
@@ -300,13 +305,21 @@
   const WA_NUMBER = "529984083668";
   function setLang(lang){
     document.querySelectorAll('[data-es],[data-en]').forEach(function(el){
-      el.style.display = (el.getAttribute('data-' + lang) !== null) ? '' : 'none';
+      var key = 'data-' + lang;
+      if (el.getAttribute(key) !== null) {
+        el.innerHTML = el.getAttribute(key);
+      } else if (el.getAttribute('data-en') !== null) {
+        el.innerHTML = el.getAttribute('data-en');
+      } else if (el.getAttribute('data-es') !== null) {
+        el.innerHTML = el.getAttribute('data-es');
+      }
     });
-    document.body.classList.remove('lang-es','lang-en');
+    document.body.classList.remove('lang-es','lang-en','lang-fr','lang-de','lang-nl','lang-it','lang-pt');
     document.body.classList.add('lang-' + lang);
-    var es=document.getElementById('btn-es'), en=document.getElementById('btn-en');
-    if(es) es.classList.toggle('active', lang==='es');
-    if(en) en.classList.toggle('active', lang==='en');
+    ['es','en','fr','de','nl','it','pt'].forEach(function(l){
+      var b = document.getElementById('btn-' + l);
+      if(b) b.classList.toggle('active', lang===l);
+    });
     try{ localStorage.setItem('prohogar_lang', lang); }catch(e){}
   }
   (function(){ var s='es'; try{ s=localStorage.getItem('prohogar_lang')||'es'; }catch(e){} setLang(s); })();
@@ -368,8 +381,7 @@
   });
 
   // Lead capture: Formspree primary, WhatsApp fallback.
-  const FORMSPREE_ID = "xprohogar-leads-placeholder";
-  const WA_NUMBER = "529984083668";
+  // (FORMSPREE_ID and WA_NUMBER declared in first script block above)
 
   function submitToFormspree(form, data) {
     return fetch("https://formspree.io/f/" + FORMSPREE_ID, {
@@ -488,7 +500,7 @@
     var close = document.getElementById('ph-chat-close');
     var body = document.getElementById('ph-chat-body');
 
-    function t(es, en){ return getLang() === 'en' ? en : es; }
+    function t(es, en){ return getLang() === 'es' ? es : en; }
     function getLang(){
       try { return document.body.classList.contains('lang-en') ? 'en' : 'es'; } catch(e){ return 'es'; }
     }
@@ -497,6 +509,9 @@
     window.setLang = function(l){
       if (originalSetLang) originalSetLang(l);
       lang = l;
+      // Restart chat if open so buttons update language
+      var chatEl = document.getElementById('ph-chat');
+      if (chatEl && chatEl.classList.contains('open')) start();
     };
 
     var SERVICES = [
